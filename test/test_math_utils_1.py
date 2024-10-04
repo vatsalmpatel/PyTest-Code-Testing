@@ -1,4 +1,5 @@
-from math_utils import add
+import pytest
+from code.math_utils import add
 
 def test_add_integers():
     assert add(1,2) == 3

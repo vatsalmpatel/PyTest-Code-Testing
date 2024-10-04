@@ -1,5 +1,6 @@
-from math_utils import add
 import pytest
+import code.math_utils as cma
+
 
 @pytest.mark.parametrize("a,b,expected",[
     (1,2,3),
@@ -9,4 +10,4 @@ import pytest
     (-1.0,1.0,0.0)
 ])
 def test_add(a,b,expected):
-    assert add(a,b) == expected
+    assert cma.add(a,b) == expected
