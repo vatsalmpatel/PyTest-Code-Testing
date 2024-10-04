@@ -1,0 +1,141 @@
+# Complex web application configuration
+
+app:
+  name: MyApp
+  version: 2.3.1
+  description: |
+    This is a multi-service web application with authentication, 
+    caching, and various environment-specific configurations.
+  allowed_hosts:
+    - www.myapp.com
+    - api.myapp.com
+    - localhost
+  environments:
+    - development
+    - testing
+    - production
+
+server:
+  development:
+    host: localhost
+    port: 8000
+    ssl: false
+    workers: 2
+
+  production:
+    host: 0.0.0.0
+    port: 443
+    ssl: true
+    workers: 8
+    cert_path: /etc/ssl/myapp_cert.pem
+    key_path: /etc/ssl/myapp_key.pem
+
+database:
+  default: &default_db
+    type: postgresql
+    port: 5432
+    username: admin
+    password: supersecret
+    options:
+      sslmode: require
+      timeout: 30s
+
+  development:
+    <<: *default_db
+    host: localhost
+    name: myapp_dev_db
+
+  production:
+    <<: *default_db
+    host: db.myapp.com
+    name: myapp_prod_db
+
+authentication:
+  jwt_secret: "super_secure_jwt_key"
+  token_expiration_minutes: 60
+  refresh_token_expiration_days: 7
+  allowed_providers:
+    - google
+    - facebook
+    - github
+  oauth2_providers:
+    google:
+      client_id: google-client-id
+      client_secret: google-client-secret
+    facebook:
+      client_id: facebook-client-id
+      client_secret: facebook-client-secret
+
+caching:
+  enabled: true
+  type: redis
+  development:
+    host: localhost
+    port: 6379
+    ttl_seconds: 600
+  production:
+    host: cache.myapp.com
+    port: 6379
+    ttl_seconds: 3600
+
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: "%(levelname)s %(message)s"
+    detailed:
+      format: "%(asctime)s %(levelname)s [%(name)s] %(message)s"
+
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: simple
+    file:
+      class: logging.FileHandler
+      formatter: detailed
+      filename: /var/log/myapp.log
+      level: DEBUG
+
+  root:
+    level: INFO
+    handlers: [console, file]
+
+security:
+  enable_cors: true
+  allowed_origins:
+    - https://www.myapp.com
+    - https://admin.myapp.com
+  rate_limiting:
+    requests_per_minute: 100
+    burst_size: 200
+
+monitoring:
+  enabled: true
+  services:
+    - type: prometheus
+      endpoint: /metrics
+    - type: datadog
+      api_key: datadog-api-key
+
+# Microservices configuration
+microservices:
+  user_service:
+    url: https://userservice.myapp.com
+    timeout_seconds: 10
+    retries: 3
+  order_service:
+    url: https://orderservice.myapp.com
+    timeout_seconds: 15
+    retries: 5
+
+# List of admin users
+admins:
+  - username: alice_admin
+    email: alice@myapp.com
+    roles: 
+      - superuser
+      - admin
+  - username: bob_manager
+    email: bob@myapp.com
+    roles:
+      - manager

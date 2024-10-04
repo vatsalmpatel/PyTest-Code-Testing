@@ -1,0 +1,40 @@
+# Web application configuration
+
+app:
+  name: MyApp
+  version: 1.0.0
+  debug: true
+
+server:
+  host: 127.0.0.1
+  port: 8080
+  ssl: false
+
+database:
+  type: postgresql
+  host: localhost
+  port: 5432
+  username: admin
+  password: secret
+  name: myapp_db
+
+logging:
+  level: INFO
+  file: /var/log/myapp.log
+
+features:
+  enable_signup: true
+  enable_notifications: false
+
+# List of users
+users:
+  - username: john_doe
+    email: john@example.com
+    roles:
+      - admin
+      - editor
+
+  - username: jane_smith
+    email: jane@example.com
+    roles:
+      - editor
