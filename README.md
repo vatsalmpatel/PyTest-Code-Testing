@@ -2,6 +2,11 @@
 
 This repository contains a test suite for validating complex YAML configuration files used in a web application. The test suite is implemented using `pytest` and tests various aspects of the configuration, including server settings, database connections, microservices, logging, authentication, and more.
 
+## Note
+
+- The sample YAML files were generated using ChatGPT
+- **This project follows TDD (Test-Driven Development) Paradigm of Software Engineering, which means that we write tests first, and then write small, inceremental pieces of code (in this case YAML config files) that will pass these tests, leading to robust tested code (in our case YAML configuration files), which is ready at all times to be deployed into production. We have to make sure that the tests are written first, and then your code, not the other way round. Th ewhole point of TDD is to write tests first, and then code, which ensures that your code is robust and free of any bugs.**
+
 ## Project Structure
 
 **`
@@ -25,7 +30,7 @@ test/
 `**
 This folder contains all the test for the code files in **code/** directory. **test_math_utils_1.py** and **test_math_utils_2.py** contains tests for the **math_utils.py** file in the **code/** directory. The **test_config_sample_1.py** file has tests for the **sample1.yaml** file and **test_config_sample_2.py** file has tests for the **sample2.yaml** file.
 
-## Installing Requirements?
+## Installing Requirements:
 
 As this is mainly used for writing tests in `pytest`, you will need to first install pytest, which can be done with the help of:
 
@@ -61,6 +66,11 @@ pip install -r requirements.txt
 
     ![test-fail-image](/static/test-fail.png)
 
-## How did we generate the sample YAML files?
+## Integration with GitHub Action:
 
-- Write something here
+- With the help of GitHub Actions, whenever there is a push to the master/main branch or a pull request is sent to the master/main branch, tests are run first with pytest, which ensures that no bugs are introduced to your production code. These tests are run automatically on every pull/push to the master/main branch.
+
+## Future Improvements/Changes:
+
+- Lock users from pushing directly pushing to the master branch by enabling ruleset on this repo
+- Add another rule that will ensure that merging to master/main branch only happens if all the tests pass, if not, prevent merge into the master/main branch
