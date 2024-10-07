@@ -1,0 +1,63 @@
+app:
+  debug: true
+  name: MyApp
+  version: 1.0.0
+database:
+  host: localhost
+  name: myapp_db
+  password: secret
+  port: 5432
+  type: postgresql
+  username: admin
+features:
+  enable_notifications: false
+  enable_signup: true
+logging:
+  file: /var/log/myapp.log
+  level: INFO
+server:
+  host: 127.0.0.1
+  port: 8080
+  ssl: false
+users:
+- email: john@example.com
+  roles:
+  - admin
+  - editor
+  username: john_doe
+- email: jane@example.com
+  roles:
+  - editor
+  username: jane_smith
+---
+app:
+  debug: true
+  name: MyApp
+  version: 1.0.0
+database:
+  host: localhost
+  name: myapp_db
+  password: secret
+  port: 5432
+  type: postgresql
+  username: admin
+features:
+  enable_notifications: false
+  enable_signup: true
+logging:
+  file: /var/log/myapp.log
+  level: INFO
+server:
+  host: 127.0.0.1
+  port: 8080
+  ssl: false
+users:
+- email: john@example.com
+  roles:
+  - admin
+  - editor
+  username: john_doe
+- email: jane@example.com
+  roles:
+  - editor
+  username: jane_smith
